@@ -51,26 +51,26 @@
 - **Single action per round** — each ReAct round calls one tool; document tools pack multiple operations via `actions` array
 - **Task list management** — automatically decomposes complex tasks and tracks progress
 - **Workflow engine** — define and execute multi-step automated workflows with DAG node graph
-- **Scheduled tasks** — create recurring or one-time scheduled tasks with cron expressions
+- **Scheduled tasks** — create recurring or one-time scheduled tasks with flexible repeat rules (ONCE/HOURLY/DAILY/WEEKLY/MONTHLY/YEARLY)
+- **Skill system** — load domain-specific skill documents (Word/Excel) to guide document generation with professional formatting
 
 ### 💾 Three-Layer Memory System
 
-- **Working Memory** — current conversation context with token budget management
-- **Short-Term Memory** — recent dialogue history with configurable TTL and round limits
-- **Long-Term Memory** — persistent knowledge with LLM-powered summarization and embedding-based retrieval
+- **Procedural Memory** — stores the Agent's behavioral patterns and operational knowledge, including system prompts, skill documents, workflow definitions, task execution rules, and current time awareness. This layer shapes _how_ the Agent thinks and acts
+- **Short-Term Memory** — maintains recent dialogue history with **AOF (Append-Only File) Rewrite** mechanism: raw conversation records (user interactions, AI thoughts, tool actions/results) are reorganized per retrieval — merging action-result pairs by round, deduplicating file operations (keeping only the latest write per file), and truncating to a configurable round limit — ensuring compact, relevant context without redundant noise
+- **Long-Term Memory** — preserves persistent knowledge through two complementary structures:
+  - **Effective Conversations** — the most recent N high-quality dialogue segments (user requests and AI responses) that remain directly useful for ongoing context
+  - **Historical Summaries** — older conversations compressed via dual-mode LLM summarization: _incremental compression_ appends new summary fragments as conversations grow, while _full compression_ rewrites the entire summary when token count exceeds the threshold, ensuring the summary stays coherent and bounded
 
 ### 🔧 MCP Tool System
 
 | Tool               | Description                                                                                                                                         |
 | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Word**           | Create/modify Word documents — paragraphs, tables, styles, headers/footers, images, watermarks, TOC, and 20+ operations via `actions` array         |
-| **Excel**          | Create/modify Excel spreadsheets — cells, formulas, styles, charts, data validation, conditional formatting, and 25+ operations via `actions` array |
+| **Word**           | Create/modify Word documents — paragraphs, tables, styles, headers/footers, images, watermarks, TOC, and 39+ operations via `actions` array         |
+| **Excel**          | Create/modify Excel spreadsheets — cells, formulas, styles, charts, data validation, conditional formatting, and 30+ operations via `actions` array |
 | **PDF Read**       | Extract text and tables from PDF files                                                                                                              |
-| **Chart**          | Generate data visualization charts (bar, line, pie, etc.)                                                                                           |
-| **Knowledge Base** | Upload and query documents with vector similarity search                                                                                            |
-| **File Manager**   | List, rename, delete files in MinIO storage                                                                                                         |
-| **Ask User**       | Interactive clarification with multiple-choice options                                                                                              |
-| **Time**           | Get current date and time                                                                                                                           |
+| **Chart**          | Generate data visualization charts (bar, line, pie, scatter, area)                                                                                  |
+| **Knowledge Base** | Upload and query documents with vector similarity search (Milvus)                                                                                   |
 
 ### 📡 Real-time Communication
 
@@ -98,7 +98,7 @@
                              │        │         │
                              │  ┌─────▼──────┐  │
                              │  │  Memory    │  │
-                             │  │ W/S/L Layer│  │
+                             │  │ P/S/L Layer│  │
                              │  └────────────┘  │
                              └────────┬─────────┘
                                       │
@@ -249,6 +249,27 @@ agent-service/
 - [Vite](https://vitejs.dev/) — Build tool
 - [Pinia](https://pinia.vuejs.org/) — State management
 
-## 📄 License
+## �️ Roadmap
+
+### v1.0.0 (Current)
+
+- ReAct reasoning engine with Thought-Action-Observation loop
+- Three-layer memory system (Procedural / Short-Term AOF / Long-Term Summary)
+- MCP tools: Word (39+ actions), Excel (30+ actions), PDF Read, Chart, Knowledge Base
+- System tools: file management, workflow CRUD/execution, scheduled tasks, ask_user, knowledge base query
+- Real-time SSE communication with workflow visualization
+- Skill system for domain-specific document generation guidance
+
+### v1.1.0 (Planned)
+
+- **Redis caching** — hot data caching for sessions, agents, and frequently accessed queries
+- **RocketMQ async tasks** — decouple long-running tool executions from the ReAct loop via message-driven processing
+- **Elasticsearch long-term memory retrieval** — enable hybrid search (vector + full-text) for long-term memory recall
+
+### v1.2.0 (Planned)
+
+- **Thread pool managing multi-Agent** — concurrent Agent runtime management with shared thread pool isolation and resource quotas
+
+## �📄 License
 
 This project is licensed under the MIT License.
