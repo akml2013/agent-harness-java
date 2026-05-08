@@ -278,7 +278,7 @@ This is a **learning project** created for educational purposes to explore AI Ag
 
 ## 👨‍💻 Built by
 
-**Backend Developer** — Computer Science Master's Degree
+**Ruize Song** — Computer Technology Master's Degree
 
 Backend development engineer with expertise in Java, C++, and Python. Passionate about AI Agent architecture and Harness Engineering patterns.
 
