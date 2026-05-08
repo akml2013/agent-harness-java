@@ -119,17 +119,43 @@
 git clone https://github.com/your-username/agent-service.git
 cd agent-service
 
-# Set your API keys
-export DEEPSEEK_API_KEY=your-deepseek-api-key
+# Configure environment variables
+cd docker
+cp .env.example .env
+# Edit .env and fill in your API keys
 
 # Start all services
-cd docker
 docker compose up -d
 
 # Access the application
 # Frontend: http://localhost:8080
 # Backend API: http://localhost:8081
 ```
+
+<details>
+<summary>🐳 Troubleshooting: Image Pull Failures</summary>
+
+If you encounter image pull failures due to network issues, use the provided script to pull images manually:
+
+```bash
+cd docker
+powershell -ExecutionPolicy Bypass -File pull-images.ps1
+```
+
+**Or pull images manually:**
+
+```bash
+# Configure Docker mirror (Docker Desktop -> Settings -> Docker Engine)
+{
+  "registry-mirrors": [
+    "https://docker.mirrors.ustc.edu.cn",
+    "https://hub-mirror.c.163.com",
+    "https://mirror.baidubce.com"
+  ]
+}
+```
+
+</details>
 
 ### Local Development
 
