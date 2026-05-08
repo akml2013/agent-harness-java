@@ -1,7 +1,7 @@
 <p align="center">
-  <h1 align="center">🤖 AI Agent Service</h1>
+  <h1 align="center">🤖 Office Work Agent Harness</h1>
   <p align="center">
-    <em>Enterprise Intelligent Office Assistant powered by ReAct Reasoning Engine</em>
+    <em>Enterprise Intelligent Office Assistant with Harness Engineering Architecture</em>
   </p>
   <p align="center">
     <a href="https://www.java.com/en/download/help/whatis_java.html">
@@ -249,7 +249,7 @@ agent-service/
 - [Vite](https://vitejs.dev/) — Build tool
 - [Pinia](https://pinia.vuejs.org/) — State management
 
-## �️ Roadmap
+## 📍 Roadmap
 
 ### v1.0.0 (Current)
 
@@ -276,6 +276,19 @@ This is a **learning project** created for educational purposes to explore AI Ag
 - The project prioritizes learning and experimentation over production readiness
 - Contributions, feedback, and suggestions are welcome!
 
-## 📄 License
+## 👨‍💻 Built by
+
+**Backend Developer** — Computer Science Master's Degree
+
+Backend development engineer with expertise in Java, C++, and Python. Passionate about AI Agent architecture and Harness Engineering patterns.
+
+|           |                             |
+| --------- | --------------------------- |
+| 💻 GitHub | https://github.com/akml2013 |
+| 📧 Email  | akmla8@qq.com               |
+
+---
+
+## 📜 License
 
 This project is licensed under the MIT License.
