@@ -1,0 +1,224 @@
+services:
+  mysql:
+    container_name: agent-service-mysql
+    image: mysql:8.0
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: agent_service
+      MYSQL_CHARACTER_SET_SERVER: utf8mb4
+      MYSQL_COLLATION_SERVER: utf8mb4_unicode_ci
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ../sql/agent_service.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    networks:
+      - agent-network
+
+  redis:
+    container_name: agent-service-redis
+    image: redis:7.2-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - agent-network
+
+  elasticsearch:
+    container_name: agent-service-elasticsearch
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.12.0
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - es_data:/usr/share/elasticsearch/data
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:9200/_cluster/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    networks:
+      - agent-network
+
+  etcd:
+    container_name: agent-service-etcd
+    image: quay.io/coreos/etcd:v3.5.5
+    environment:
+      - ETCD_AUTO_COMPACTION_MODE=revision
+      - ETCD_AUTO_COMPACTION_RETENTION=1000
+      - ETCD_QUOTA_BACKEND_BYTES=4294967296
+      - ETCD_SNAPSHOT_COUNT=50000
+    volumes:
+      - etcd_data:/etcd
+    command: etcd -advertise-client-urls=http://127.0.0.1:2379 -listen-client-urls http://0.0.0.0:2379 --data-dir /etcd
+    healthcheck:
+      test: ["CMD", "etcdctl", "endpoint", "health"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+    networks:
+      - agent-network
+
+  minio:
+    container_name: agent-service-minio
+    image: minio/minio:RELEASE.2023-03-20T20-16-18Z
+    environment:
+      MINIO_ACCESS_KEY: minioadmin
+      MINIO_SECRET_KEY: minioadmin
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio_data:/minio_data
+    command: minio server /minio_data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+    networks:
+      - agent-network
+
+  milvus:
+    container_name: agent-service-milvus
+    image: milvusdb/milvus:v2.4.11
+    command: ["milvus", "run", "standalone"]
+    security_opt:
+      - seccomp:unconfined
+    environment:
+      ETCD_ENDPOINTS: etcd:2379
+      MINIO_ADDRESS: minio:9000
+    volumes:
+      - milvus_data:/var/lib/milvus
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9091/healthz"]
+      interval: 30s
+      start_period: 90s
+      timeout: 20s
+      retries: 3
+    ports:
+      - "19530:19530"
+      - "9091:9091"
+    depends_on:
+      - etcd
+      - minio
+    networks:
+      - agent-network
+
+  rocketmq-nameserver:
+    container_name: agent-service-rocketmq-nameserver
+    image: apache/rocketmq:5.3.2
+    ports:
+      - "9876:9876"
+    environment:
+      JAVA_OPT: "-Duser.home=/home/rocketmq"
+    command: ["sh","mqnamesrv"]
+    volumes:
+      - rocketmq_namesrv_logs:/home/rocketmq/logs
+    networks:
+      - agent-network
+
+  rocketmq-broker:
+    container_name: agent-service-rocketmq-broker
+    image: apache/rocketmq:5.3.2
+    ports:
+      - "10909:10909"
+      - "10911:10911"
+      - "10912:10912"
+    environment:
+      NAMESRV_ADDR: "rocketmq-nameserver:9876"
+      JAVA_OPT_EXT: "-Duser.home=/home/rocketmq -server -Xms512m -Xmx512m"
+    command: ["sh","mqbroker","-c","/home/rocketmq/conf/broker.conf"]
+    volumes:
+      - ./rocketmq/broker.conf:/home/rocketmq/conf/broker.conf
+    depends_on:
+      - rocketmq-nameserver
+    networks:
+      - agent-network
+
+  agent-core:
+    container_name: agent-service-core
+    build:
+      context: ..
+      dockerfile: docker/agent-core/Dockerfile
+    ports:
+      - "8081:8081"
+    environment:
+      DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY:-your-api-key}
+      DEEPSEEK_BASE_URL: ${DEEPSEEK_BASE_URL:-https://api.deepseek.com}
+      DEEPSEEK_MODEL: ${DEEPSEEK_MODEL:-deepseek-chat}
+      EMBEDDING_API_KEY: ${EMBEDDING_API_KEY:-your-api-key}
+      EMBEDDING_API_URL: ${EMBEDDING_API_URL:-https://api.siliconflow.cn/v1/embeddings}
+      EMBEDDING_MODEL: ${EMBEDDING_MODEL:-Qwen/Qwen3-Embedding-4B}
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      elasticsearch:
+        condition: service_healthy
+      milvus:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+      rocketmq-broker:
+        condition: service_started
+    networks:
+      - agent-network
+    restart: on-failure
+
+  agent-ui:
+    container_name: agent-service-ui
+    build:
+      context: ..
+      dockerfile: docker/agent-ui/Dockerfile
+    ports:
+      - "8080:80"
+    depends_on:
+      - agent-core
+    networks:
+      - agent-network
+    restart: on-failure
+
+volumes:
+  mysql_data:
+    name: agent-service-mysql-data
+  redis_data:
+    name: agent-service-redis-data
+  es_data:
+    name: agent-service-es-data
+  etcd_data:
+    name: agent-service-etcd-data
+  minio_data:
+    name: agent-service-minio-data
+  milvus_data:
+    name: agent-service-milvus-data
+  rocketmq_namesrv_logs:
+    name: agent-service-rocketmq-namesrv-logs
+  rocketmq_broker_logs:
+    name: agent-service-rocketmq-broker-logs
+  rocketmq_broker_store:
+    name: agent-service-rocketmq-broker-store
+
+networks:
+  agent-network:
+    name: agent-service-network
+    driver: bridge

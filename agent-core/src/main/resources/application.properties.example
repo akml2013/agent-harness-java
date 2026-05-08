@@ -1,0 +1,154 @@
+server.port=8081
+spring.application.name=agent-core
+
+spring.main.allow-bean-definition-overriding=true
+
+# Spring AI - Elasticsearch auto-config disabled (use Milvus as primary)
+
+management.elasticsearch.enabled=false
+spring.ai.vectorstore.elasticsearch.initialize-schema=false
+
+# Spring MVC 路径匹配策略（解决 Swagger 兼容性问题）
+
+spring.mvc.pathmatch.matching-strategy=ant_path_matcher
+
+# 禁用 Knife4j/Swagger（暂时）
+
+knife4j.enable=false
+swagger.enable=false
+springfox.documentation.enabled=false
+
+# Nacos 服务发现配置
+
+spring.cloud.nacos.discovery.server-addr=localhost:8848
+spring.cloud.nacos.discovery.enabled=false
+
+# Nacos 配置中心配置（暂时禁用）
+
+spring.cloud.nacos.config.enabled=false
+
+# MySQL 数据源配置
+
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.datasource.url=jdbc:mysql://localhost:3306/agent_service?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+spring.datasource.username=root
+spring.datasource.password=your-password-here
+
+# HikariCP 连接池配置
+
+spring.datasource.hikari.minimum-idle=5
+spring.datasource.hikari.maximum-pool-size=20
+spring.datasource.hikari.idle-timeout=30000
+spring.datasource.hikari.max-lifetime=1800000
+spring.datasource.hikari.connection-timeout=30000
+spring.datasource.hikari.connection-test-query=SELECT 1
+spring.datasource.hikari.pool-name=AgentCoreHikariPool
+
+# MyBatis-Plus 配置
+
+mybatis-plus.mapper-locations=classpath*:/mapper/**/*.xml
+mybatis-plus.type-aliases-package=com.example.core.entity
+mybatis-plus.configuration.map-underscore-to-camel-case=true
+mybatis-plus.configuration.log-impl=org.apache.ibatis.logging.stdout.StdOutImpl
+mybatis-plus.global-config.db-config.id-type=auto
+mybatis-plus.global-config.db-config.logic-delete-field=deleted
+mybatis-plus.global-config.db-config.logic-delete-value=1
+mybatis-plus.global-config.db-config.logic-not-delete-value=0
+
+# Deepseek AI 配置（自研方案）
+
+deepseek.api-key=your-api-key-here
+deepseek.base-url=https://api.deepseek.com
+deepseek.model=deepseek-chat
+
+# Spring AI 配置（OpenAI 兼容接口）
+
+spring.ai.openai.api-key=your-api-key-here
+spring.ai.openai.base-url=https://api.deepseek.com
+spring.ai.openai.chat.options.model=deepseek-chat
+
+# Spring AI - Milvus 向量存储配置
+
+spring.ai.vectorstore.milvus.client.host=localhost
+spring.ai.vectorstore.milvus.client.port=19530
+spring.ai.vectorstore.milvus.database-name=default
+spring.ai.vectorstore.milvus.collection-name=agent_vector_store
+spring.ai.vectorstore.milvus.initialize-schema=true
+
+# RocketMQ 配置
+
+rocketmq.name-server=127.0.0.1:9876
+rocketmq.producer.group=agent-core-producer
+rocketmq.producer.send-message-timeout=3000
+rocketmq.producer.retry-times-when-send-failed=2
+
+# Redis 配置
+
+spring.data.redis.host=127.0.0.1
+spring.data.redis.port=6379
+spring.data.redis.timeout=3000ms
+spring.data.redis.lettuce.pool.max-active=8
+spring.data.redis.lettuce.pool.max-idle=8
+spring.data.redis.lettuce.pool.min-idle=2
+
+# Agent 配置
+
+agent.message.default-rounds=3
+
+# Agent SKILLS配置
+
+agent.skills.directory=./skills
+
+# Agent 心跳配置
+
+agent.heartbeat.enabled=true
+agent.heartbeat.interval-minutes=30
+agent.heartbeat.max-tokens=256
+
+# Spring AI - Elasticsearch 向量存储配置
+
+spring.ai.vectorstore.elasticsearch.initialize-schema=true
+spring.elasticsearch.uris=http://localhost:9200
+
+# Memory Layer - 记忆层配置
+
+# 短期记忆：保留最近N条对话记录
+memory.short-term.ttl=600
+memory.short-term.max-rounds=20
+
+# 长期记忆：有效对话段条数 + 历史摘要
+memory.long-term.enabled=true
+memory.long-term.effective-conversation-count=4
+memory.long-term.summary-token-threshold=300
+memory.long-term.summary-cache-ttl=3600
+
+# 上下文：Token预算
+memory.context.max-tokens=8000
+memory.context.output-reserve-tokens=2000
+
+# 压缩：降级与超时
+memory.compress.fallback-truncate-length=200
+memory.compress.llm-timeout-seconds=30
+memory.compress.await-timeout-seconds=60
+
+# MCP结果截断长度
+memory.short-term.result-truncate-length=200
+
+# ReAct引擎：最大轮数
+memory.react.default-max-rounds=10
+memory.react.continue-add-rounds=10
+
+# Memory Layer - Embedding 向量化服务配置
+
+memory.embedding.provider=siliconflow
+memory.embedding.api-url=https://api.siliconflow.cn/v1/embeddings
+memory.embedding.api-key=your-embedding-api-key-here
+memory.embedding.model=Qwen/Qwen3-Embedding-4B
+memory.embedding.dimension=2560
+
+# MinIO 对象存储配置
+
+minio.endpoint=http://localhost:9000
+minio.access-key=your-minio-access-key-here
+minio.secret-key=your-minio-secret-key-here
+minio.bucket=agent-files

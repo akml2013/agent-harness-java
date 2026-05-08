@@ -1,0 +1,146 @@
+:root {
+  --sidebar-width: 280px;
+  --sidebar-collapsed-width: 64px;
+  --right-panel-width: 320px;
+  --right-panel-collapsed-width: 0px;
+
+  --bg-primary: #f5f7fa;
+  --bg-sidebar: #1e1e2d;
+  --bg-sidebar-hover: #2a2a3d;
+  --bg-sidebar-active: #363650;
+  --bg-white: #ffffff;
+  --bg-chat-user: #ecf5ff;
+  --bg-chat-assistant: #f0f2f5;
+
+  --text-primary: #303133;
+  --text-regular: #606266;
+  --text-secondary: #909399;
+  --text-sidebar: #a2a3b7;
+  --text-sidebar-secondary: rgba(162,163,183,0.6);
+  --text-sidebar-active: #ffffff;
+  --text-white: #ffffff;
+
+  --border-color: #e4e7ed;
+  --border-light: #ebeef5;
+
+  --accent-color: #409eff;
+  --accent-hover: #66b1ff;
+  --success-color: #67c23a;
+  --warning-color: #e6a23c;
+  --danger-color: #f56c6c;
+  --info-color: #909399;
+
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 6px rgba(0,0,0,0.08);
+  --shadow-lg: 0 10px 15px rgba(0,0,0,0.12);
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.25s ease;
+
+  --bg-welcome-gradient-start: #409eff;
+  --bg-welcome-gradient-end: #66b1ff;
+  --bg-suggestion-hover: #ecf5ff;
+  --bg-thought: #fafafa;
+  --bg-thought-streaming: #f0f7ff;
+  --border-thought-streaming: #b3d8ff;
+  --text-thought-streaming: #409eff;
+  --bg-mcp-action: #f0f7ff;
+  --border-mcp-action: #d9ecff;
+  --bg-system-action: #f0f9eb;
+  --border-system-action: #e1f3d8;
+  --bg-ask-user: #fdf6ec;
+  --border-ask-user: #faecd8;
+  --bg-file-card: #f5f7fa;
+  --bg-task-card: #f5f7fa;
+  --bg-incomplete-banner-start: #fdf6ec;
+  --bg-incomplete-banner-end: #fef0e6;
+  --bg-compressing: #e6a23c;
+  --bg-code: #f5f7fa;
+  --text-code: #e6a23c;
+  --bg-doc-word: #ecf5ff;
+  --color-doc-word: #409eff;
+  --bg-doc-excel: #f0f9eb;
+  --color-doc-excel: #67c23a;
+  --bg-doc-pdf: #fef0f0;
+  --color-doc-pdf: #f56c6c;
+  --bg-doc-image: #e8f8f5;
+  --color-doc-image: #1abc9c;
+  --bg-doc-default: #f5f7fa;
+  --color-doc-default: #909399;
+  --bg-action-report: #ecf5ff;
+  --color-action-report: #409eff;
+  --bg-action-data: #f0f9eb;
+  --color-action-data: #67c23a;
+  --bg-action-excel: #fef0f0;
+  --color-action-excel: #f56c6c;
+  --bg-action-kb: #f3e8ff;
+  --color-action-kb: #9b59b6;
+  --bg-action-wf: #fdf2e9;
+  --color-action-wf: #e67e22;
+  --bg-action-st: #e8f4fd;
+  --color-action-st: #3498db;
+  --bg-login-gradient-start: #1e1e2d;
+  --bg-login-gradient-mid: #2d2d44;
+  --bg-login-gradient-end: #1e1e2d;
+  --bg-login-shape1: #409eff;
+  --bg-login-shape2: #67c23a;
+  --bg-login-shape3: #e6a23c;
+  --text-login-title: #1e1e2d;
+  --bg-admin-aside: #545c64;
+  --color-admin-aside: #ffffff;
+  --bg-context-menu: #ffffff;
+  --border-context-menu: #e4e7ed;
+  --shadow-context-menu: 0 2px 12px rgba(0,0,0,0.12);
+  --color-context-danger: #f56c6c;
+  --bg-context-danger-hover: #fef0f0;
+  --color-context-disabled: #c0c4cc;
+  --color-context-warning: #e6a23c;
+
+  --text-title: #303133;
+  --text-content: #606266;
+  --text-placeholder: #c0c4cc;
+  --border-divider: #f2f6fc;
+  --bg-disabled: #f4f4f5;
+  --bg-light: #f5f5f5;
+  --bg-node-default: #fafafa;
+  --border-node-default: #c0c4cc;
+  --color-node-default: #c0c4cc;
+  --bg-node-success: #f0f9eb;
+  --border-node-success: #67c23a;
+  --bg-node-warning: #fdf6ec;
+  --border-node-warning: #e6a23c;
+  --bg-node-danger: #fef0f0;
+  --border-node-danger: #f56c6c;
+  --bg-node-teal: #e8f8f5;
+  --border-node-teal: #1abc9c;
+
+  --bg-overlay: rgba(0, 0, 0, 0.5);
+  --shadow-modal: 0 8px 32px rgba(0, 0, 0, 0.15);
+  --shadow-card-hover: 0 2px 12px rgba(0, 0, 0, 0.08);
+  --bg-search-sidebar: rgba(255, 255, 255, 0.6);
+  --bg-login-card: rgba(255, 255, 255, 0.95);
+  --shadow-login-card: 0 20px 60px rgba(0, 0, 0, 0.15);
+  --scrollbar-thumb: #c0c4cc;
+  --scrollbar-thumb-hover: #909399;
+  --text-tertiary: #c0c4cc;
+  --border-subtle: rgba(0, 0, 0, 0.06);
+  --shadow-small: 0 1px 3px rgba(0, 0, 0, 0.15);
+  --shadow-running-glow: 0 0 12px rgba(230, 162, 60, 0.4);
+
+  --tag-primary-bg: rgba(64,158,255,0.1);
+  --tag-primary-border: rgba(64,158,255,0.2);
+  --tag-success-bg: rgba(103,194,58,0.1);
+  --tag-success-border: rgba(103,194,58,0.2);
+  --tag-danger-bg: rgba(245,108,108,0.1);
+  --tag-danger-border: rgba(245,108,108,0.2);
+  --tag-warning-bg: rgba(230,162,60,0.1);
+  --tag-warning-border: rgba(230,162,60,0.2);
+  --tag-info-bg: rgba(144,147,153,0.1);
+  --tag-info-border: rgba(144,147,153,0.15);
+
+  --app-zoom: 1.15;
+}

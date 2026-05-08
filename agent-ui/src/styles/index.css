@@ -1,0 +1,68 @@
+@import './variables.css';
+
+.el-button--primary {
+  --el-button-bg-color: var(--accent-color);
+  --el-button-border-color: var(--accent-color);
+  --el-button-hover-bg-color: var(--accent-hover);
+  --el-button-hover-border-color: var(--accent-hover);
+}
+
+.el-menu {
+  border-right: none !important;
+}
+
+.el-tag--primary {
+  --el-tag-bg-color: var(--tag-primary-bg);
+  --el-tag-border-color: var(--tag-primary-border);
+  --el-tag-text-color: var(--accent-color);
+}
+
+.el-tag--success {
+  --el-tag-bg-color: var(--tag-success-bg);
+  --el-tag-border-color: var(--tag-success-border);
+  --el-tag-text-color: var(--success-color);
+}
+
+.el-tag--danger {
+  --el-tag-bg-color: var(--tag-danger-bg);
+  --el-tag-border-color: var(--tag-danger-border);
+  --el-tag-text-color: var(--danger-color);
+}
+
+.el-tag--warning {
+  --el-tag-bg-color: var(--tag-warning-bg);
+  --el-tag-border-color: var(--tag-warning-border);
+  --el-tag-text-color: var(--warning-color);
+}
+
+.el-tag--info {
+  --el-tag-bg-color: var(--tag-info-bg);
+  --el-tag-border-color: var(--tag-info-border);
+  --el-tag-text-color: var(--info-color);
+}
+
+.el-dialog {
+  --el-dialog-bg-color: var(--bg-white);
+  border-radius: var(--radius-lg);
+}
+
+.el-message-box {
+  --el-messagebox-title-color: var(--text-primary);
+  --el-messagebox-content-color: var(--text-regular);
+}
+
+.el-input__wrapper {
+  box-shadow: 0 0 0 1px var(--border-color) inset;
+}
+
+.el-input__wrapper:hover {
+  box-shadow: 0 0 0 1px var(--accent-color) inset;
+}
+
+.el-input__wrapper.is-focus {
+  box-shadow: 0 0 0 1px var(--accent-color) inset;
+}
+
+.el-progress-bar__inner {
+  background-color: var(--accent-color);
+}

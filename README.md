@@ -1,0 +1,228 @@
+<p align="center">
+  <h1 align="center">🤖 AI Agent Service</h1>
+  <p align="center">
+    <em>Enterprise Intelligent Office Assistant powered by ReAct Reasoning Engine</em>
+  </p>
+  <p align="center">
+    <a href="https://www.java.com/en/download/help/whatis_java.html">
+      <img alt="Java 17" src="https://img.shields.io/badge/Java-17-ED8B00?logo=openjdk&logoColor=white">
+    </a>
+    <a href="https://spring.io/projects/spring-boot">
+      <img alt="Spring Boot" src="https://img.shields.io/badge/Spring_Boot-3.2-6DB33F?logo=springboot&logoColor=white">
+    </a>
+    <a href="https://vuejs.org/">
+      <img alt="Vue 3" src="https://img.shields.io/badge/Vue-3-4FC08D?logo=vuedotjs&logoColor=white">
+    </a>
+    <a href="https://element-plus.org/">
+      <img alt="Element Plus" src="https://img.shields.io/badge/Element_Plus-2.6-409EFF?logo=elementplus&logoColor=white">
+    </a>
+    <a href="https://www.docker.com/">
+      <img alt="Docker" src="https://img.shields.io/badge/Docker-Ready-2496ED?logo=docker&logoColor=white">
+    </a>
+  </p>
+  <p align="center">
+    <a href="https://milvus.io/">
+      <img alt="Milvus" src="https://img.shields.io/badge/Milvus-2.4-00A1EA?logo=milvus&logoColor=white">
+    </a>
+    <a href="https://www.elastic.co/elasticsearch">
+      <img alt="Elasticsearch" src="https://img.shields.io/badge/Elasticsearch-8.12-005571?logo=elasticsearch&logoColor=white">
+    </a>
+    <a href="https://min.io/">
+      <img alt="MinIO" src="https://img.shields.io/badge/MinIO-Object_Storage-C72E49?logo=minio&logoColor=white">
+    </a>
+    <a href="https://rocketmq.apache.org/">
+      <img alt="RocketMQ" src="https://img.shields.io/badge/RocketMQ-5.3-D77310?logo=apacherocketmq&logoColor=white">
+    </a>
+    <a href="https://redis.io/">
+      <img alt="Redis" src="https://img.shields.io/badge/Redis-7.2-DC382D?logo=redis&logoColor=white">
+    </a>
+  </p>
+</p>
+
+<p align="center">
+  <img src="assets/agent-service.gif" alt="AI Agent Service Demo" width="800">
+</p>
+
+## ✨ Features
+
+### 🧠 ReAct Reasoning Engine
+
+- **Thought-Action-Observation loop** — the agent reasons step by step, calls tools, and observes results iteratively
+- **Single action per round** — each ReAct round calls one tool; document tools pack multiple operations via `actions` array
+- **Task list management** — automatically decomposes complex tasks and tracks progress
+- **Workflow engine** — define and execute multi-step automated workflows with DAG node graph
+- **Scheduled tasks** — create recurring or one-time scheduled tasks with cron expressions
+
+### 💾 Three-Layer Memory System
+
+- **Working Memory** — current conversation context with token budget management
+- **Short-Term Memory** — recent dialogue history with configurable TTL and round limits
+- **Long-Term Memory** — persistent knowledge with LLM-powered summarization and embedding-based retrieval
+
+### 🔧 MCP Tool System
+
+| Tool               | Description                                                                                                                                         |
+| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Word**           | Create/modify Word documents — paragraphs, tables, styles, headers/footers, images, watermarks, TOC, and 20+ operations via `actions` array         |
+| **Excel**          | Create/modify Excel spreadsheets — cells, formulas, styles, charts, data validation, conditional formatting, and 25+ operations via `actions` array |
+| **PDF Read**       | Extract text and tables from PDF files                                                                                                              |
+| **Chart**          | Generate data visualization charts (bar, line, pie, etc.)                                                                                           |
+| **Knowledge Base** | Upload and query documents with vector similarity search                                                                                            |
+| **File Manager**   | List, rename, delete files in MinIO storage                                                                                                         |
+| **Ask User**       | Interactive clarification with multiple-choice options                                                                                              |
+| **Time**           | Get current date and time                                                                                                                           |
+
+### 📡 Real-time Communication
+
+- **SSE (Server-Sent Events)** — real-time streaming of AI thoughts, tool calls, and results to the frontend
+- **Workflow visualization** — live node status updates during workflow execution
+- **Task progress** — real-time task list updates as the agent works
+
+## 🏗️ Architecture
+
+```
+┌─────────────┐     SSE      ┌──────────────────┐
+│   Vue 3 UI  │◄────────────►│   Spring Boot    │
+│  Element+   │   REST/SSE   │   Agent Core     │
+└─────────────┘              │                  │
+                             │  ┌────────────┐  │
+                             │  │ ReAct Loop │  │
+                             │  │ Think→Act  │  │
+                             │  │ →Observe   │  │
+                             │  └─────┬──────┘  │
+                             │        │         │
+                             │  ┌─────▼──────┐  │
+                             │  │ MCP Tools  │  │
+                             │  │ System Tool│  │
+                             │  └─────┬──────┘  │
+                             │        │         │
+                             │  ┌─────▼──────┐  │
+                             │  │  Memory    │  │
+                             │  │ W/S/L Layer│  │
+                             │  └────────────┘  │
+                             └────────┬─────────┘
+                                      │
+                    ┌─────────────────┼─────────────────┐
+                    │                 │                   │
+              ┌─────▼────┐    ┌──────▼─────┐    ┌──────▼─────┐
+              │  MySQL   │    │   Milvus   │    │   MinIO    │
+              │  Redis   │    │    ES      │    │ RocketMQ   │
+              └──────────┘    └────────────┘    └────────────┘
+```
+
+## 🚀 Quick Start
+
+### Docker Compose (Recommended)
+
+```bash
+# Clone the repository
+git clone https://github.com/your-username/agent-service.git
+cd agent-service
+
+# Set your API keys
+export DEEPSEEK_API_KEY=your-deepseek-api-key
+
+# Start all services
+cd docker
+docker compose up -d
+
+# Access the application
+# Frontend: http://localhost:8080
+# Backend API: http://localhost:8081
+```
+
+### Local Development
+
+**Prerequisites:**
+
+- JDK 17+
+- Node.js 20+
+- MySQL 8.0, Redis 7, Elasticsearch 8, Milvus 2.4, MinIO, RocketMQ 5
+
+**Backend:**
+
+```bash
+# Initialize database
+mysql -u root -p < sql/agent_service.sql
+
+# Configure application.properties (copy from example)
+cp agent-core/src/main/resources/application.properties.example \
+   agent-core/src/main/resources/application.properties
+
+# Build and run
+mvn clean package -DskipTests
+java -jar agent-core/target/agent-core-1.0.0-SNAPSHOT.jar
+```
+
+**Frontend:**
+
+```bash
+cd agent-ui
+npm install
+npm run dev
+# Access at http://localhost:3000
+```
+
+## ⚙️ Configuration
+
+Key environment variables for Docker deployment:
+
+| Variable            | Description               | Default                                    |
+| ------------------- | ------------------------- | ------------------------------------------ |
+| `DEEPSEEK_API_KEY`  | DeepSeek LLM API key      | `your-api-key`                             |
+| `DEEPSEEK_BASE_URL` | LLM API base URL          | `https://api.deepseek.com`                 |
+| `DEEPSEEK_MODEL`    | LLM model name            | `deepseek-chat`                            |
+| `EMBEDDING_API_KEY` | Embedding service API key | `your-api-key`                             |
+| `EMBEDDING_API_URL` | Embedding service URL     | `https://api.siliconflow.cn/v1/embeddings` |
+| `EMBEDDING_MODEL`   | Embedding model name      | `Qwen/Qwen3-Embedding-4B`                  |
+
+For local development, edit `agent-core/src/main/resources/application.properties`.
+
+## 📁 Project Structure
+
+```
+agent-service/
+├── agent-core/            # Spring Boot backend — ReAct engine, MCP tools, memory layer
+├── agent-ui/              # Vue 3 frontend — chat UI, workflow editor, file manager
+├── agent-common/          # Shared modules (common-core, common-api, common-util)
+├── skills/                # AI skill documents (Word/Excel domain knowledge)
+├── sql/                   # Database initialization scripts
+├── docker/                # Docker Compose & Dockerfiles
+│   ├── docker-compose.yml
+│   ├── agent-core/
+│   │   ├── Dockerfile
+│   │   └── application-docker.properties
+│   ├── agent-ui/
+│   │   ├── Dockerfile
+│   │   └── nginx.conf
+│   └── rocketmq/
+│       └── broker.conf
+├── assets/                # Demo images and GIFs
+└── docs/                  # Documentation
+```
+
+## 🛠️ Tech Stack
+
+**Backend:**
+
+- [Spring Boot 3.2](https://spring.io/projects/spring-boot) — Application framework
+- [MyBatis-Plus](https://baomidou.com/) — ORM framework
+- [Apache POI](https://poi.apache.org/) — Word/Excel document processing
+- [Spring AI](https://spring.io/projects/spring-ai) — AI integration framework
+- [Milvus](https://milvus.io/) — Vector database for semantic search
+- [Elasticsearch](https://www.elastic.co/) — Full-text search & vector storage
+- [MinIO](https://min.io/) — Object storage for file management
+- [RocketMQ](https://rocketmq.apache.org/) — Message queue for async tasks
+- [Redis](https://redis.io/) — Caching & session storage
+
+**Frontend:**
+
+- [Vue 3](https://vuejs.org/) — Progressive JavaScript framework
+- [Element Plus](https://element-plus.org/) — UI component library
+- [Vue Flow](https://vue-flow.dev/) — Workflow DAG visualization
+- [Vite](https://vitejs.dev/) — Build tool
+- [Pinia](https://pinia.vuejs.org/) — State management
+
+## 📄 License
+
+This project is licensed under the MIT License.

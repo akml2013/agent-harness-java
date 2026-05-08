@@ -1,0 +1,212 @@
+:root {
+  --sidebar-width: 280px;
+  --sidebar-collapsed-width: 64px;
+  --right-panel-width: 320px;
+  --right-panel-collapsed-width: 0px;
+
+  --bg-primary: #f5f5f5;
+  --bg-sidebar: #1a1a1a;
+  --bg-sidebar-hover: #2a2a2a;
+  --bg-sidebar-active: #3a3a3a;
+  --bg-white: #ffffff;
+  --bg-chat-user: #e8e8e8;
+  --bg-chat-assistant: #f0f0f0;
+
+  --text-primary: #1a1a1a;
+  --text-regular: #333333;
+  --text-secondary: #666666;
+  --text-sidebar: #cccccc;
+  --text-sidebar-secondary: rgba(204,204,204,0.6);
+  --text-sidebar-active: #ffffff;
+  --text-white: #ffffff;
+
+  --border-color: #d9d9d9;
+  --border-light: #e8e8e8;
+
+  --accent-color: #595959;
+  --accent-hover: #737373;
+  --success-color: #389e0d;
+  --warning-color: #d48806;
+  --danger-color: #cf1322;
+  --info-color: #666666;
+
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 6px rgba(0,0,0,0.08);
+  --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.25s ease;
+
+  --bg-welcome-gradient-start: #595959;
+  --bg-welcome-gradient-end: #737373;
+  --bg-suggestion-hover: #f0f0f0;
+  --bg-thought: #ffffff;
+  --bg-thought-streaming: #f5f5f5;
+  --border-thought-streaming: #bfbfbf;
+  --text-thought-streaming: #595959;
+  --bg-mcp-action: rgba(89,89,89,0.06);
+  --border-mcp-action: rgba(89,89,89,0.15);
+  --bg-system-action: rgba(56,158,13,0.06);
+  --border-system-action: rgba(56,158,13,0.15);
+  --bg-ask-user: #f5f5f5;
+  --border-ask-user: #d9d9d9;
+  --bg-file-card: #ffffff;
+  --bg-task-card: #ffffff;
+  --bg-incomplete-banner-start: #f5f5f5;
+  --bg-incomplete-banner-end: #e8e8e8;
+  --bg-compressing: #d48806;
+  --bg-code: #f5f5f5;
+  --text-code: #595959;
+  --bg-doc-word: rgba(89,89,89,0.08);
+  --color-doc-word: #595959;
+  --bg-doc-excel: rgba(56,158,13,0.08);
+  --color-doc-excel: #389e0d;
+  --bg-doc-pdf: rgba(207,19,34,0.08);
+  --color-doc-pdf: #cf1322;
+  --bg-doc-image: rgba(102,102,102,0.08);
+  --color-doc-image: #666666;
+  --bg-doc-default: rgba(102,102,102,0.06);
+  --color-doc-default: #666666;
+  --bg-action-report: rgba(0,0,0,0.05);
+  --color-action-report: #595959;
+  --bg-action-data: rgba(0,0,0,0.05);
+  --color-action-data: #389e0d;
+  --bg-action-excel: rgba(0,0,0,0.05);
+  --color-action-excel: #cf1322;
+  --bg-action-kb: rgba(0,0,0,0.05);
+  --color-action-kb: #722ed1;
+  --bg-action-wf: rgba(0,0,0,0.05);
+  --color-action-wf: #d48806;
+  --bg-action-st: rgba(0,0,0,0.05);
+  --color-action-st: #1890ff;
+  --bg-login-gradient-start: #1a1a1a;
+  --bg-login-gradient-mid: #2a2a2a;
+  --bg-login-gradient-end: #1a1a1a;
+  --bg-login-shape1: #595959;
+  --bg-login-shape2: #389e0d;
+  --bg-login-shape3: #d48806;
+  --text-login-title: #1a1a1a;
+  --bg-admin-aside: #1a1a1a;
+  --color-admin-aside: #cccccc;
+  --bg-context-menu: #ffffff;
+  --border-context-menu: #d9d9d9;
+  --shadow-context-menu: 0 2px 12px rgba(0,0,0,0.12);
+  --color-context-danger: #cf1322;
+  --bg-context-danger-hover: rgba(207,19,34,0.06);
+  --color-context-disabled: #bfbfbf;
+  --color-context-warning: #d48806;
+
+  --text-title: #1a1a1a;
+  --text-content: #333333;
+  --text-placeholder: #bfbfbf;
+  --border-divider: #e8e8e8;
+  --bg-disabled: #f0f0f0;
+  --bg-light: #f5f5f5;
+  --bg-node-default: #f0f0f0;
+  --border-node-default: #bfbfbf;
+  --color-node-default: #bfbfbf;
+  --bg-node-success: rgba(56,158,13,0.06);
+  --border-node-success: var(--success-color);
+  --bg-node-warning: rgba(212,136,6,0.06);
+  --border-node-warning: var(--warning-color);
+  --bg-node-danger: rgba(207,19,34,0.06);
+  --border-node-danger: var(--danger-color);
+  --bg-node-teal: rgba(102,102,102,0.06);
+  --border-node-teal: var(--info-color);
+
+  --bg-overlay: rgba(0, 0, 0, 0.5);
+  --shadow-modal: 0 8px 32px rgba(0,0,0,0.15);
+  --shadow-card-hover: 0 2px 12px rgba(0,0,0,0.08);
+  --bg-search-sidebar: rgba(255, 255, 255, 0.15);
+  --bg-login-card: rgba(255, 255, 255, 0.95);
+  --shadow-login-card: 0 20px 60px rgba(0, 0, 0, 0.2);
+  --scrollbar-thumb: #bfbfbf;
+  --scrollbar-thumb-hover: #999999;
+  --text-tertiary: #bfbfbf;
+  --border-subtle: rgba(0, 0, 0, 0.06);
+  --shadow-small: 0 1px 3px rgba(0, 0, 0, 0.15);
+  --shadow-running-glow: 0 0 12px rgba(212, 136, 6, 0.4);
+
+  --tag-primary-bg: rgba(89,89,89,0.08);
+  --tag-primary-border: rgba(89,89,89,0.15);
+  --tag-success-bg: rgba(56,158,13,0.08);
+  --tag-success-border: rgba(56,158,13,0.15);
+  --tag-danger-bg: rgba(207,19,34,0.06);
+  --tag-danger-border: rgba(207,19,34,0.15);
+  --tag-warning-bg: rgba(212,136,6,0.08);
+  --tag-warning-border: rgba(212,136,6,0.15);
+  --tag-info-bg: rgba(102,102,102,0.06);
+  --tag-info-border: rgba(102,102,102,0.12);
+
+  --app-zoom: 1.15;
+}
+
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+    'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+    'Noto Color Emoji';
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+}
+
+html {
+  zoom: var(--app-zoom);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity var(--transition-normal);
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.slide-right-enter-active,
+.slide-right-leave-active {
+  transition: transform var(--transition-normal);
+}
+
+.slide-right-enter-from {
+  transform: translateX(100%);
+}
+
+.slide-right-leave-to {
+  transform: translateX(100%);
+}
