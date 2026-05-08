@@ -265,11 +265,17 @@ agent-service/
 - **Redis caching** — hot data caching for sessions, agents, and frequently accessed queries
 - **RocketMQ async tasks** — decouple long-running tool executions from the ReAct loop via message-driven processing
 - **Elasticsearch long-term memory retrieval** — enable hybrid search (vector + full-text) for long-term memory recall
-
-### v1.2.0 (Planned)
-
 - **Thread pool managing multi-Agent** — concurrent Agent runtime management with shared thread pool isolation and resource quotas
 
-## �📄 License
+## 📝 Disclaimer
+
+This is a **learning project** created for educational purposes to explore AI Agent architecture and implementation patterns. While it demonstrates many production-like features, please be aware that:
+
+- The codebase is still evolving and may contain bugs or incomplete implementations
+- Some features (Redis caching, RocketMQ async tasks, Elasticsearch retrieval, multi-Agent thread pool) are planned but not yet implemented
+- The project prioritizes learning and experimentation over production readiness
+- Contributions, feedback, and suggestions are welcome!
+
+## 📄 License
 
 This project is licensed under the MIT License.
